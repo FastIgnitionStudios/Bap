@@ -25,9 +25,12 @@ struct Cmd {
   void Clear();
 };
 
+
+#define AppendCmd(Cmd, first, ...) Cmd.AppendVariadic(first, __VA_ARGS__, nullptr);
+
+
 #ifdef BAP_IMPLEMENTATION
 
-#define AppendCmd(Cmd, first, ...) Cmd->AppendVariadic(first, __VA_ARGS__, nullptr);
 
 void Cmd::Run() {
   system(Command.c_str());

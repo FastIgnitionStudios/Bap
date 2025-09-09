@@ -1,9 +1,11 @@
 #define BAP_IMPLEMENTATION
+#define BAP_DEBUG
 #include "Bap.h"
 
 int main(int argc, char* argv[]) {
   Cmd cmd = {};
 
-  AppendCmd(cmd, "g++", "Bap.cpp");
+  BAP_REBUILD(argc, argv)
+
   return 0;
 }

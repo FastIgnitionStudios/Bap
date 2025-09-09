@@ -1,3 +1,18 @@
+//
+//
+//
+//  Bap (Build a Project) is not a build system inspired by nobuild and nob by Tsoding
+//  Bap is designed for C++ projects first however may work with C and assembly projects as well
+//  More language support may be added in the future
+//  Bap is designed to be built once and then rand
+//  to rebuild the c++ project without the need for external tooling other than the C++ Compiler of your choice.
+//  An example on linux with GCC is "cc Bap.cpp -o Bap"
+//
+//
+//
+//
+
+
 #pragma once
 
 #include <iostream>
@@ -16,11 +31,11 @@
 
 #elif defined (__GNUC__)
 
-#define PLATFORM_COMPIER "g++"
+#define PLATFORM_COMPIER "cc"
 
 #elif defined (__clang__)
 
-#define PLATFORM_COMPILER "clang++"
+#define PLATFORM_COMPIER "cc"
 
 #endif
 
@@ -48,20 +63,35 @@ struct Cmd {
 
 #define BAP_REBUILD(argc, argv) Bap_Rebuild(argc, argv);
 
+//
+// This function is what automatically rebuilds the project whenever bap is run
+//
 
 void Bap_Rebuild(int argc, char** argv);
+
+
+//
+//  This is a class designed to abstract the organisation of a project and its files and generate
+//  the compile command without having to use the Cmd struct manually. Using the Cmd struct directly is still valid
+//  and this is just an abstraction for those that find it useful
+//
 
 class FileCollecton {
   
 public:
   FileCollecton() = default;
 
-  const char** GetFiles() { return Files.data(); }
+  std::vector<const char*> GetFiles() { return Files; }
 private:
 
   std::vector<const char*> Files;
 };
 
+
+//
+//  This is where any functions/methods defined in this header file are implemented provided BAP_IMPLEMENTATION
+//  is defined before this file is included. This follows the stb style of header and source file in one.
+//
 
 #ifdef BAP_IMPLEMENTATION
 
